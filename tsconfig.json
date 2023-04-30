@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 18 + Strictest",
+  "compilerOptions": {
+    "lib": ["es2022", "DOM"],
+    "module": "commonjs",
+    "target": "es2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "allowUnusedLabels": true,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": false,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "checkJs": true,
+    "outDir": "build",
+    "rootDir": "./",
+    "declaration": true
+  },
+  "exclude": [
+    "**/*.d.ts",
+    "build",
+    "node_modules",
+    "benchmarks",
+    "__tests__",
+    "jest.config.cjs",
+    ".eslintrc.js",
+    "README.md",
+    "typedoc.json",
+    "docs"
+  ]
+}
