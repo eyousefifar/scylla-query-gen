@@ -1,9 +1,9 @@
 {
-  "name": "aba-node",
-  "version": "0.2.8",
-  "description": "node js utilities",
+  "name": "scylla-query-gen",
+  "version": "0.1.0",
+  "description": "scylla db query generator",
   "main": "build/index.js",
-  "repository": "https://github.com/eyousefifar/aba-node",
+  "repository": "https://github.com/eyousefifar/scylla-query-gen",
   "author": "Erfan Yousefifar",
   "license": "UNLICENSED",
   "scripts": {
@@ -16,26 +16,26 @@
   "devDependencies": {
     "@types/benchmark": "^2.1.2",
     "@types/http-status-codes": "^1.2.0",
-    "@types/jest": "^29.5.0",
+    "@types/jest": "^29.5.1",
     "@types/microtime": "^2.1.0",
-    "@types/node": "18.15.3",
+    "@types/node": "18.16.3",
     "@types/uuid": "9.0.1",
-    "@typescript-eslint/eslint-plugin": "5.55.0",
-    "@typescript-eslint/parser": "5.55.0",
+    "@typescript-eslint/eslint-plugin": "5.59.2",
+    "@typescript-eslint/parser": "5.59.2",
     "benchmark": "^2.1.4",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-security": "^1.7.1",
     "jest": "^29.5.0",
     "microtime": "^3.1.1",
-    "prettier": "2.8.4",
-    "rimraf": "^4.4.0",
-    "ts-jest": "^29.0.5",
-    "typescript": "^5.0.2"
+    "prettier": "2.8.8",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
-    "aba-utils": "0.6.0",
+    "aba-utils": "0.6.2",
     "cassandra-driver": "^4.6.4"
   }
 }
