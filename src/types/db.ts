@@ -126,7 +126,7 @@ export interface IQuery {
 
 export interface IValues {
   column: string;
-  updateValue?: string | number | boolean | null;
+  value?: string | number | boolean | null;
   useParameter?: boolean;
 }
 export interface IInsertQuery {

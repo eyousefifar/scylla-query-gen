@@ -12,9 +12,9 @@ export function insertQuery(args: IInsertQuery) {
   const columns = [];
   const columnValues = [];
   for (let index = 0; index < values.length; index++) {
-    const { column, value, self } = values[index];
+    const { column, value, useParameter } = values[index];
     columns.push(column.toLowerCase());
-    if (self) {
+    if (useParameter) {
       columnValues.push(`:${column.toLowerCase()}`);
     } else if (typeof value === "string") {
       columnValues.push(`'${value}'`);

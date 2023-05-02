@@ -12,16 +12,16 @@ export function updateQuery(args: IUpdateQuery) {
   const updateInfo = [];
   const ifClause = lwt ? `IF ${lwt.join(andStr)}` : "";
   for (let index = 0; index < values.length; index++) {
-    const { column, updateValue, useParameter } = values[index];
+    const { column, value, useParameter } = values[index];
 
     if (useParameter) {
       updateInfo.push(`${column.toLowerCase()} = :${column.toLowerCase()}`);
-    } else if (typeof updateValue === "string") {
-      updateInfo.push(`${column.toLowerCase()} = '${updateValue}'`);
-    } else if (updateValue === null) {
+    } else if (typeof value === "string") {
+      updateInfo.push(`${column.toLowerCase()} = '${value}'`);
+    } else if (value === null) {
       updateInfo.push(`${column.toLowerCase()} = null`);
     } else {
-      updateInfo.push(`${column.toLowerCase()} = ${updateValue}`);
+      updateInfo.push(`${column.toLowerCase()} = ${value}`);
     }
   }
   return `UPDATE ${tableName} SET ${updateInfo.join(
