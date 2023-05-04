@@ -1,6 +1,6 @@
 {
   "name": "scylla-query-gen",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "scylla db query generator",
   "main": "build/index.js",
   "repository": "https://github.com/eyousefifar/scylla-query-gen",
