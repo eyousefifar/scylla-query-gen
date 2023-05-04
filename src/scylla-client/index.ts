@@ -3,10 +3,9 @@ import { buildInit } from "./init";
 import { buildSelect } from "./select";
 import { buildExecute } from "./execute";
 import { buildBatch } from "./batch";
-import { Uuid } from "./datatype"
+import { Uuid } from "./datatype";
 import { ErrorFactory } from "aba-utils";
 import type { IScyllaClient } from "../types";
-
 
 export * as dataType from "./datatype";
 
@@ -23,13 +22,12 @@ export function scyllaClient(info: IScyllaClient) {
     applicationName,
     applicationVersion,
     id,
-    errorPath,
   } = info;
   try {
     const client = new Client({
       applicationName,
       applicationVersion,
-      id: id ? Uuid.fromString(id) : undefined,
+      id: id ? Uuid.fromString(id) : Uuid.random(),
       contactPoints: contactPoints,
       localDataCenter: localDataCenter,
       keyspace,
@@ -49,7 +47,6 @@ export function scyllaClient(info: IScyllaClient) {
       message: "Error in creating scylla db client",
       detail: "",
       nativeError: error,
-      path: errorPath,
     });
   }
 }
