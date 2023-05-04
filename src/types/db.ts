@@ -3,10 +3,8 @@ import { Client, types } from "cassandra-driver";
 export type tResultSet = types.ResultSet;
 export type tRow = types.Row;
 export type tLong = types.Long;
-interface IErrorPath {
-  errorPath: string | undefined;
-}
-export interface IScyllaClient extends IErrorPath {
+
+export interface IScyllaClient  {
   id: string | undefined;
   applicationName: string | undefined;
   applicationVersion: string | undefined;
@@ -26,19 +24,19 @@ export interface IQueryOptions {
   consistency: number | undefined;
   serialConsistency: number | undefined;
 }
-export interface ISelect extends IErrorPath {
+export interface ISelect  {
   query: string;
   params: Record<string, any> | undefined;
   unique: boolean;
   queryOptions: IQueryOptions | undefined;
 }
 
-export interface IQueryExec extends IErrorPath {
+export interface IQueryExec  {
   query: string;
   params: Record<string, any> | undefined;
 }
 
-export interface IInit extends IErrorPath {
+export interface IInit  {
   query: string;
 }
 
@@ -129,11 +127,18 @@ export interface IValues {
   value?: string | number | boolean | null;
   useParameter?: boolean;
 }
+
+export interface ITTL {
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
+}
 export interface IInsertQuery {
   table: string;
   version: string;
   values: IValues[];
   lwt?: string[];
+  ttl?: ITTL;
 }
 export interface IUpdateQuery {
   table: string;
@@ -141,6 +146,7 @@ export interface IUpdateQuery {
   values: IValues[];
   where: string[];
   lwt?: string[];
+  ttl?: ITTL;
 }
 export interface IDeleteQuery {
   table: string;
@@ -207,7 +213,6 @@ interface IBatchQueries {
 }
 export interface IBatch {
   queries: IBatchQueries[];
-  errorPath: string;
 }
 
 export type tDbSelectFunc = (info: ISelect) => Promise<tResultSet>;
