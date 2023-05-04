@@ -1,4 +1,5 @@
 import { separator, andStr } from "./constant";
+import { timeToSeconds } from "./timeToSeconds"
 import type { IUpdateQuery } from "../types";
 
 /**
@@ -7,7 +8,7 @@ import type { IUpdateQuery } from "../types";
  * @returns a query string
  */
 export function updateQuery(args: IUpdateQuery) {
-  const { table, version, values, where, lwt } = args;
+  const { table, version, values, where, lwt, ttl } = args;
   const tableName = `${table.toLowerCase()}_${version.toLowerCase()}`;
   const updateInfo = [];
   const ifClause = lwt ? `IF ${lwt.join(andStr)}` : "";
@@ -24,7 +25,8 @@ export function updateQuery(args: IUpdateQuery) {
       updateInfo.push(`${column.toLowerCase()} = ${value}`);
     }
   }
+  const ttlClause = ttl ? `USING TTL ${timeToSeconds(ttl)}` : "";
   return `UPDATE ${tableName} SET ${updateInfo.join(
     separator
-  )} WHERE ${where.join(andStr)} ${ifClause};`;
+  )} WHERE ${where.join(andStr)} ${ifClause} ${ttlClause};`;
 }

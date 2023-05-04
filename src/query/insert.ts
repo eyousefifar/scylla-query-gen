@@ -1,4 +1,5 @@
 import { andStr, separator } from "./constant";
+import { timeToSeconds } from "./timeToSeconds";
 import type { IInsertQuery } from "../types";
 
 /**
@@ -7,7 +8,7 @@ import type { IInsertQuery } from "../types";
  * @returns an insert query string
  */
 export function insertQuery(args: IInsertQuery) {
-  const { table, version, values, lwt } = args;
+  const { table, version, values, lwt, ttl } = args;
   const tableName = `${table.toLowerCase()}_${version.toLowerCase()}`;
   const columns = [];
   const columnValues = [];
@@ -25,7 +26,8 @@ export function insertQuery(args: IInsertQuery) {
     }
   }
   const ifClause = Array.isArray(lwt) ? `IF ${lwt.join(andStr)}` : "";
+  const ttlClause = ttl ? `USING TTL ${timeToSeconds(ttl)}` : "";
   return `INSERT INTO ${tableName} (${columns.join(
     separator
-  )}) VALUES (${columnValues.join(separator)}) ${ifClause};`;
+  )}) VALUES (${columnValues.join(separator)}) ${ifClause} ${ttlClause};`;
 }
