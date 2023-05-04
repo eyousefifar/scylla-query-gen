@@ -1,8 +1,8 @@
+import { isReservedWord } from "./isReservedWord";
 import type { IDbColumn } from "../types";
 
-
 /**
- * stringify an array of db columns 
+ * stringify an array of db columns
  * @param columns an array of i_db_column
  * @returns a string of db columns with their types, like - id uuid, name text. separated by ' , ' for a valid syntax (cql, scylla db)
  */
@@ -10,8 +10,9 @@ export function stringifyColumns(columns: IDbColumn[]): string {
   const columnString: string[] = [];
   for (let index = 0; index < columns.length; index++) {
     const { name, type, setType, udtName, map } = columns[index];
+    isReservedWord(name);
     /**
-     * if column type is UDT (user defined types) 
+     * if column type is UDT (user defined types)
      * udtName variable should be defined
      */
     if (type === "UDT") {
@@ -59,7 +60,7 @@ export function stringifyColumns(columns: IDbColumn[]): string {
         if (!valueUdtName) {
           throw new Error("udt name must be defined when type is set to UDT");
         }
-          
+
         columnString.push(
           `${name.toLowerCase()} map<${keyType.toLowerCase()}, frozen<${valueUdtName.toLowerCase()}>>`
         );
@@ -84,7 +85,3 @@ export function stringifyColumns(columns: IDbColumn[]): string {
   }
   return columnString.join(", ");
 }
-
-
-
-
