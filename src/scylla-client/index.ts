@@ -4,11 +4,11 @@ import { buildSelect } from "./select";
 import { buildExecute } from "./execute";
 import { buildBatch } from "./batch";
 import { buildConcurrent } from "./concurrent";
-import { Uuid } from "./datatype";
+import { scyllaDataTypes } from "./datatype";
 import { ErrorFactory } from "aba-utils";
 import type { IScyllaClient } from "../types";
 
-export * as dataType from "./datatype";
+export { scyllaDataTypes } from "./datatype";
 
 /**
  ** create a scylla db client then builds CRUD methods
@@ -24,6 +24,7 @@ export function scyllaClient(info: IScyllaClient) {
     applicationVersion,
     id,
   } = info;
+  const { Uuid } = scyllaDataTypes;
   try {
     const client = new Client({
       applicationName,
