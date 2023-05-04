@@ -24,6 +24,18 @@ export interface IQueryOptions {
   consistency: number | undefined;
   serialConsistency: number | undefined;
 }
+export interface IConcurrentQuery {
+  query: string;
+  params: Record<string, any>[];
+}
+export interface IConcurrent  {
+  queries: IConcurrentQuery[];
+}
+export interface IConcurrentResult {
+  resultItems: any[];
+  totalExecuted: number;
+  allExecuted: boolean;
+}
 export interface ISelect  {
   query: string;
   params: Record<string, any> | undefined;
@@ -191,13 +203,13 @@ export interface ILessThan {
 export interface INotEqual {
   argument: string;
   useParameter?: boolean;
-  notEqualValue: string | number | boolean;
+  notEqualValue?: string | number | boolean;
 }
 
-export interface IIN {
+export interface IIN<T> {
   argument: string;
   useParameter?: boolean;
-  values?: string[];
+  values?: T[];
 }
 
 // export interface IContains {
