@@ -9,7 +9,7 @@ import type { IBuildDbFunc, IBatch, tResultSet } from "../types";
 export function buildBatch(args: IBuildDbFunc) {
   const { client } = args;
   return async function batch(info: IBatch): Promise<tResultSet> {
-    const { queries, errorPath } = info;
+    const { queries } = info;
     try {
       const result = await client.batch(queries, { prepare: true });
       return result;
@@ -19,7 +19,6 @@ export function buildBatch(args: IBuildDbFunc) {
         message: "batch is not applied",
         detail: `batch: ${JSON.stringify(info)} failed`,
         nativeError: error,
-        path: errorPath,
       });
     }
   };

@@ -14,7 +14,6 @@ export function buildExecute(args: IBuildDbFunc) {
       message: "mode must be defined when building execute",
       detail: 'mode?: "delete" | "init" | "insert" | "update"',
       nativeError: undefined,
-      path: "build Execute, scylla client",
     });
   }
   /**
@@ -23,7 +22,7 @@ export function buildExecute(args: IBuildDbFunc) {
    * @returns scylla db result set
    */
   return async function execute(info: IQueryExec): Promise<tResultSet> {
-    const { query, params, errorPath } = info;
+    const { query, params } = info;
     try {
       const result = await client.execute(query, params, { prepare: true });
       return result;
@@ -32,7 +31,6 @@ export function buildExecute(args: IBuildDbFunc) {
         name: `query_${mode}_failed`,
         message: "problem in executing query",
         detail: `query: ${query} failed to execute`,
-        path: errorPath,
         nativeError: error,
       });
     }

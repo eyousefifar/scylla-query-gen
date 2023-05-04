@@ -37,7 +37,7 @@ export function buildSelect(args: IBuildDbFunc) {
    * @returns scylla db result set
    */
   return async function select(info: ISelect): Promise<tResultSet> {
-    const { query, params, unique, queryOptions, errorPath } = info;
+    const { query, params, unique, queryOptions } = info;
     const { autoPage, consistency, fetchSize, pageState, serialConsistency } =
       queryOptionsGen(queryOptions);
     try {
@@ -57,7 +57,6 @@ export function buildSelect(args: IBuildDbFunc) {
           message: "results should contain only one row",
           detail: `results: ${result.rows.toString()}, must be dealt with immediately. query: ${query}
              , params: ${params}, info: ${result.info}`,
-          path: errorPath,
           nativeError: undefined,
         });
       }
@@ -67,7 +66,6 @@ export function buildSelect(args: IBuildDbFunc) {
         name: "select_failed",
         message: "problem in executing query",
         detail: `query: ${query}, params: ${params} failed to execute`,
-        path: errorPath,
         nativeError: error,
       });
     }

@@ -14,7 +14,7 @@ export function buildInit(args: IBuildDbFunc) {
    * @returns scylla db result set
    */
   return async function init(info: IInit): Promise<tResultSet> {
-    const { query, errorPath } = info;
+    const { query } = info;
     try {
       const result = await client.execute(query, undefined, { prepare: true });
       return result;
@@ -23,7 +23,6 @@ export function buildInit(args: IBuildDbFunc) {
         name: "query_init_failed",
         message: "problem in executing query",
         detail: `query: ${query} failed to execute`,
-        path: errorPath,
         nativeError: error,
       });
     }
