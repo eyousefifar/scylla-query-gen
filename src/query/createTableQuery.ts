@@ -15,13 +15,10 @@ export function createTableQuery(args: ICreateTable): IQuery {
   const columnDefinitions = stringifyColumns(columns);
   const primaryKeyDefinition = stringifyPrimaryKey(primaryKey);
   const clusteringOrderDefinition = orderBy
-    ? `WITH CLUSTERING ORDER BY (${stringifyOrderBy(orderBy)})`
+    ? ` WITH CLUSTERING ORDER BY (${stringifyOrderBy(orderBy)})`
     : "";
 
-  const tableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (
-    ${columnDefinitions},
-    PRIMARY KEY (${primaryKeyDefinition})
-  ) ${clusteringOrderDefinition};`;
+  const tableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnDefinitions}, PRIMARY KEY ${primaryKeyDefinition})${clusteringOrderDefinition};`;
   return {
     name: tableName,
     query: tableQuery,

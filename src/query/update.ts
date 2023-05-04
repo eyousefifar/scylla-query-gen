@@ -11,10 +11,9 @@ export function updateQuery(args: IUpdateQuery) {
   const { table, version, values, where, lwt, ttl } = args;
   const tableName = `${table.toLowerCase()}_${version.toLowerCase()}`;
   const updateInfo = [];
-  const ifClause = lwt ? `IF ${lwt.join(andStr)}` : "";
   for (let index = 0; index < values.length; index++) {
     const { column, value, useParameter } = values[index];
-
+    
     if (useParameter) {
       updateInfo.push(`${column.toLowerCase()} = :${column.toLowerCase()}`);
     } else if (typeof value === "string") {
@@ -25,8 +24,9 @@ export function updateQuery(args: IUpdateQuery) {
       updateInfo.push(`${column.toLowerCase()} = ${value}`);
     }
   }
-  const ttlClause = ttl ? `USING TTL ${timeToSeconds(ttl)}` : "";
-  return `UPDATE ${tableName} SET ${updateInfo.join(
+  const ttlClause = ttl ? ` USING TTL ${timeToSeconds(ttl)}` : "";
+  const ifClause = lwt ? ` IF ${lwt.join(andStr)}` : "";
+  return `UPDATE ${tableName}${ttlClause} SET ${updateInfo.join(
     separator
-  )} WHERE ${where.join(andStr)} ${ifClause} ${ttlClause};`;
+  )} WHERE ${where.join(andStr)}${ifClause};`;
 }

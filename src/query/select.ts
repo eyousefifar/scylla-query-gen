@@ -20,11 +20,13 @@ export function selectQuery(args: ISelectQuery) {
   } = args;
   const tableName = `${table.toLowerCase()}_${version.toLowerCase()}`;
 
-  const columnList = columns.join(separator).toLowerCase();
-
-  const isDistinct = distinct ? "DISTINCT" : "";
-  return `SELECT ${isDistinct} ${columnList} FROM ${tableName} WHERE 
-          ${where.join(andStr)} ${limit ? `LIMIT ${limit}` : ""} 
-          ${orderBy ? `ORDER BY ${orderBy.key} ${orderBy.type}` : ""}  
-          ${allowFiltering ? "ALLOW FILTERING" : ""};`;
+  const columnList = ` ${columns.join(separator).toLowerCase()}`;
+  const whereClause = where ? ` WHERE ${where.join(andStr)}` : "";
+  const limitClause = limit ? ` LIMIT ${limit}` : "";
+  const isDistinct = distinct ? " DISTINCT" : "";
+  const orderByClause = orderBy
+    ? ` ORDER BY ${orderBy.key} ${orderBy.type}`
+    : "";
+  const allowFilteringClause = allowFiltering ? " ALLOW FILTERING" : "";
+  return `SELECT${isDistinct}${columnList} FROM ${tableName}${whereClause}${limitClause}${orderByClause}${allowFilteringClause};`;
 }

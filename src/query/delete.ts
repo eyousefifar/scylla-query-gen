@@ -12,7 +12,7 @@ export function deleteQuery(args: IDeleteQuery) {
   const tableName = `${table.toLowerCase()}_${version.toLowerCase()}`;
   const deleteColumns = columns ? ` ${columns.join(separator)}` : "";
   const ifClause = lwt ? `IF ${lwt.join(andStr)}` : "";
-  return `DELETE ${deleteColumns.toLowerCase()} FROM ${tableName} WHERE ${where.join(
+  return `DELETE${deleteColumns.toLowerCase()} FROM ${tableName} WHERE ${where.join(
     andStr
   )} ${ifClause};`;
 }

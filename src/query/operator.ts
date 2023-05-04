@@ -1,7 +1,6 @@
 import { separator } from "./constant";
 import type { IEqual, INotEqual, IGreaterThan, ILessThan, IIN } from "../types";
 
-
 export function equal(args: IEqual) {
   const { argument, useParameter, value } = args;
   if (useParameter) {
@@ -11,7 +10,6 @@ export function equal(args: IEqual) {
   }
 }
 
-
 export function greaterThan(args: IGreaterThan) {
   const { argument, useParameter, inclusive, comparisonValue } = args;
   if (useParameter) {
@@ -19,7 +17,9 @@ export function greaterThan(args: IGreaterThan) {
       inclusive ? "=" : ""
     } :${argument.toLowerCase()}`;
   } else {
-    return `${argument.toLowerCase()} >${comparisonValue ? "=" : ""} ${greaterThan}`;
+    return `${argument.toLowerCase()} >${
+      inclusive ? "=" : ""
+    } ${comparisonValue}`;
   }
 }
 
@@ -36,7 +36,9 @@ export function lessThan(args: ILessThan) {
       inclusive ? "=" : ""
     } :${argument.toLowerCase()}`;
   } else {
-    return `${argument.toLowerCase()} <${comparisonValue ? "=" : ""} ${lessThan}`;
+    return `${argument.toLowerCase()} <${
+      inclusive ? "=" : ""
+    } ${comparisonValue}`;
   }
 }
 
@@ -49,7 +51,7 @@ export function notEqual(args: INotEqual) {
   }
 }
 
-export function IN(args: IIN) {
+export function IN<T>(args: IIN<T>) {
   const { argument, useParameter, values } = args;
   if (useParameter) {
     return `${argument} IN :${argument}`;
@@ -57,7 +59,6 @@ export function IN(args: IIN) {
     return `${argument.toLowerCase()} IN (${values?.join(separator)})`;
   }
 }
-
 
 export function isNull(argument: string) {
   return `${argument} = NULL`;
@@ -67,13 +68,10 @@ export function notNull(argument: string) {
   return `${argument} IS NOT NULL`;
 }
 
-
 export function exists() {
   return "IF EXISTS";
 }
 
-
 export function notExists() {
   return "IF NOT EXISTS";
 }
-

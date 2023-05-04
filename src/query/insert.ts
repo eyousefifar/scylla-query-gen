@@ -25,9 +25,9 @@ export function insertQuery(args: IInsertQuery) {
       columnValues.push(value);
     }
   }
-  const ifClause = Array.isArray(lwt) ? `IF ${lwt.join(andStr)}` : "";
-  const ttlClause = ttl ? `USING TTL ${timeToSeconds(ttl)}` : "";
+  const ifClause = Array.isArray(lwt) ? ` IF ${lwt.join(andStr)}` : "";
+  const ttlClause = ttl ? ` USING TTL ${timeToSeconds(ttl)}` : "";
   return `INSERT INTO ${tableName} (${columns.join(
     separator
-  )}) VALUES (${columnValues.join(separator)}) ${ifClause} ${ttlClause};`;
+  )}) VALUES (${columnValues.join(separator)})${ifClause}${ttlClause};`;
 }

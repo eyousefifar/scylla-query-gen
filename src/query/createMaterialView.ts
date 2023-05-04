@@ -17,8 +17,7 @@ export function createMaterialView(args: IMaterialView): IQuery {
   const viewQuey = `CREATE MATERIALIZED VIEW IF NOT EXISTS ${viewName} AS ${selectQuery.replace(
     ";",
     " "
-  )}
-  PRIMARY KEY ${primaryKeys} ${
+  )} PRIMARY KEY ${primaryKeys}${
     orderBy ? ` WITH CLUSTERING ORDER BY (${stringifyOrderBy(orderBy)})` : ""
   };`;
 
