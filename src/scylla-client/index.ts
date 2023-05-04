@@ -3,6 +3,7 @@ import { buildInit } from "./init";
 import { buildSelect } from "./select";
 import { buildExecute } from "./execute";
 import { buildBatch } from "./batch";
+import { buildConcurrent } from "./concurrent";
 import { Uuid } from "./datatype";
 import { ErrorFactory } from "aba-utils";
 import type { IScyllaClient } from "../types";
@@ -36,6 +37,7 @@ export function scyllaClient(info: IScyllaClient) {
     return {
       init: buildInit({ client }),
       batch: buildBatch({ client }),
+      concurrent: buildConcurrent({ client }),
       select: buildSelect({ client }),
       insert: buildExecute({ client, mode: "insert" }),
       update: buildExecute({ client, mode: "update" }),
